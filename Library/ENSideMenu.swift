@@ -130,6 +130,15 @@ open class ENSideMenu : NSObject, UIGestureRecognizerDelegate {
             updateFrame()
         }
     }
+    
+    open var yOffset : CGFloat = 0 {
+        didSet {
+            needUpdateApperance = true
+            updateSideMenuApperanceIfNeeded()
+            updateFrame()
+        }
+    }
+    
     fileprivate var menuPosition:ENSideMenuPosition = .left
     fileprivate var blurStyle: UIBlurEffect.Style = .light
     ///  A Boolean value indicating whether the bouncing effect is enabled. The default value is TRUE.
@@ -140,6 +149,7 @@ open class ENSideMenu : NSObject, UIGestureRecognizerDelegate {
     fileprivate(set) var menuViewController : UIViewController!
     fileprivate var animator : UIDynamicAnimator!
     fileprivate var sourceView : UIView!
+    
     fileprivate var needUpdateApperance : Bool = false
     /// The delegate of the side menu
     open weak var delegate : ENSideMenuDelegate?
@@ -156,10 +166,11 @@ open class ENSideMenu : NSObject, UIGestureRecognizerDelegate {
 
     :param: sourceView   The parent view of the side menu view.
     :param: menuPosition The position of the side menu view.
+    :param: yOffset The offset position of the side menu view.
 
     :returns: An initialized `ENSideMenu` object, added to the specified view.
     */
-    public init(sourceView: UIView, menuPosition: ENSideMenuPosition, blurStyle: UIBlurEffect.Style = .light) {
+    public init(sourceView: UIView, menuPosition: ENSideMenuPosition, blurStyle: UIBlurEffect.Style = .light, yOffset: CGFloat = 0) {
         super.init()
         self.sourceView = sourceView
         self.menuPosition = menuPosition
@@ -215,12 +226,12 @@ open class ENSideMenu : NSObject, UIGestureRecognizerDelegate {
     func updateFrame() {
         var width:CGFloat
         var height:CGFloat
-        (width, height) = adjustFrameDimensions( sourceView.frame.size.width, height: sourceView.frame.size.height)
+        (width, height) = adjustFrameDimensions( sourceView.frame.size.width, height: sourceView.frame.size.height - yOffset)
         let menuFrame = CGRect(
             x: (menuPosition == .left) ?
                 isMenuOpen ? 0 : -menuWidth-1.0 :
                 isMenuOpen ? width - menuWidth : width+1.0,
-            y: sourceView.frame.origin.y,
+            y: sourceView.frame.origin.y + yOffset,
             width: menuWidth,
             height: height
         )
@@ -275,7 +286,7 @@ open class ENSideMenu : NSObject, UIGestureRecognizerDelegate {
         isMenuOpen = shouldOpen
         var width:CGFloat
         var height:CGFloat
-        (width, height) = adjustFrameDimensions( sourceView.frame.size.width, height: sourceView.frame.size.height)
+        (width, height) = adjustFrameDimensions( sourceView.frame.size.width, height: sourceView.frame.size.height - yOffset)
         if (bouncingEnabled) {
 
             animator.removeAllBehaviors()
@@ -321,13 +332,13 @@ open class ENSideMenu : NSObject, UIGestureRecognizerDelegate {
         else {
             var destFrame :CGRect
             if (menuPosition == .left) {
-                destFrame = CGRect(x: (shouldOpen) ? -2.0 : -menuWidth, y: 0, width: menuWidth, height: height)
+                destFrame = CGRect(x: (shouldOpen) ? -2.0 : -menuWidth, y: yOffset, width: menuWidth, height: height - yOffset)
             }
             else {
                 destFrame = CGRect(x: (shouldOpen) ? width-menuWidth : width+2.0,
-                                        y: 0,
+                                        y: yOffset,
                                         width: menuWidth,
-                                        height: height)
+                                        height: height - yOffset)
             }
 
             UIView.animate(
