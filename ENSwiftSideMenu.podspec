@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "ENSwiftSideMenu"
-  s.version      = "0.1.4"
+  s.version      = "0.2"
   s.summary      = "A simple side menu for iOS 9 and higher"
   s.homepage     = "https://github.com/evnaz/ENSwiftSideMenu"
   s.license      = { :type => "MIT", :file => "LICENSE" }
@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.requires_arc      = true
   s.platform = :ios, "9.0"
   s.swift_version = '5.0'
-  s.source   = { :git => "https://github.com/evnaz/ENSwiftSideMenu.git", :tag => "0.1.4"}
+  s.source   = { :git => "https://github.com/IPTVX/ENSwiftSideMenu.git", :tag => "0.2"}
   s.source_files      = "Library/*.swift"
 
 end
