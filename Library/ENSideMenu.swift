@@ -213,8 +213,8 @@ open class ENSideMenu : NSObject, UIGestureRecognizerDelegate {
 
     :returns: An initialized `ENSideMenu` object, added to the specified view, containing the specified menu view controller.
     */
-    public convenience init(sourceView: UIView, menuViewController: UIViewController, menuPosition: ENSideMenuPosition, blurStyle: UIBlurEffect.Style = .light) {
-        self.init(sourceView: sourceView, menuPosition: menuPosition, blurStyle: blurStyle)
+    public convenience init(sourceView: UIView, menuViewController: UIViewController, menuPosition: ENSideMenuPosition, blurStyle: UIBlurEffect.Style = .light, yOffset: CGFloat = 0) {
+        self.init(sourceView: sourceView, menuPosition: menuPosition, blurStyle: blurStyle, yOffset: yOffset)
         self.menuViewController = menuViewController
         menuViewController.view.frame = sideMenuContainerView.bounds
         menuViewController.view.autoresizingMask =  [.flexibleHeight, .flexibleWidth]
