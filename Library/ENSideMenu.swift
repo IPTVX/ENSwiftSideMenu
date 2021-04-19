@@ -175,6 +175,7 @@ open class ENSideMenu : NSObject, UIGestureRecognizerDelegate {
         self.sourceView = sourceView
         self.menuPosition = menuPosition
         self.blurStyle = blurStyle
+        self.yOffset = yOffset
         self.setupMenuView()
 
         animator = UIDynamicAnimator(referenceView:sourceView)
