@@ -333,13 +333,13 @@ open class ENSideMenu : NSObject, UIGestureRecognizerDelegate {
         else {
             var destFrame :CGRect
             if (menuPosition == .left) {
-                destFrame = CGRect(x: (shouldOpen) ? -2.0 : -menuWidth, y: yOffset, width: menuWidth, height: height - yOffset)
+                destFrame = CGRect(x: (shouldOpen) ? -2.0 : -menuWidth, y: yOffset, width: menuWidth, height: height)
             }
             else {
                 destFrame = CGRect(x: (shouldOpen) ? width-menuWidth : width+2.0,
                                         y: yOffset,
                                         width: menuWidth,
-                                        height: height - yOffset)
+                                        height: height)
             }
 
             UIView.animate(
